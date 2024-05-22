@@ -4,6 +4,12 @@ import react from '@vitejs/plugin-react'
 import path from 'path'
 import inspect from 'vite-plugin-inspect'
 import {sync} from 'glob';
+import {readFileSync} from 'fs';
+const voltFiles = sync('resources/views/**/*.blade.php')
+    .filter(file => {
+        const contents = readFileSync(file);
+        return (contents.includes('Mingle::volt()'));
+    });
 
 function myPlugin() {
  let isDevelopment = false;
@@ -25,7 +31,7 @@ function myPlugin() {
 
     async transform(src, id) {
 
-      if (id.endsWith('tsx.blade.php')) {
+      if (id.endsWith('.blade.php')) {
                 //extract code between <script> tags
                 const scriptRegex = /<script>([\s\S]*?)<\/script>/g;
                 const scriptMatch = scriptRegex.exec(src);
@@ -51,7 +57,7 @@ function myPlugin() {
 export default defineConfig({
 
     resolve: {
-        extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.tsx.blade.php'],
+        extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.blade.php'],
         alias: {
             '@': path.resolve(__dirname, 'resources/js'),
             '@livewire': path.resolve(__dirname, 'resources/views/livewire'),
@@ -78,8 +84,7 @@ export default defineConfig({
             input: [
                 'resources/css/app.css',
                 'resources/js/app.js',
-                ...sync('resources/views/**/*-tsx.blade.php')
-
+                ...voltFiles
             ],
             refresh: true
         }),

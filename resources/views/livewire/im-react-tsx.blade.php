@@ -10,11 +10,9 @@ state([
 ]);
 
 $makeItGoBoom = fn() => dd('This is dd');
-
 $doubleIt = function() {
     $this->count *= 2;
 };
-
 ?>
 <script>
 import {useState} from 'react';
@@ -24,18 +22,18 @@ function render(props) {
     const doubleDown = () => {
         props.wire.doubleIt()
     }
-    return <div className="flex flex-col gap-2">
+    return <div className=" border p-4 rounded-lg mt-2">
 
-        This is a test
-
-            <button className="bg-red-200 m-2 p-2" onClick={() => {
-                props.wire.makeItGoBoom();
-            }}>Go boom</button>
-
-            <button onClick={doubleDown}>Double it! {props.wire.count}</button>
-
+       Hello {props.wire.hello} from react!
+            <div>
+                <button className="bg-red-200 m-2 p-2" onClick={() => {
+                    props.wire.makeItGoBoom();
+                }}>Go boom</button>
+            </div>
+            <div>
+                <button onClick={doubleDown}>Double it! {props.wire.count}</button>
+            </div>
             <Button />
-
         </div>
 }
 </script>
