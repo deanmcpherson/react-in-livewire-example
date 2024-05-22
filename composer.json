@@ -6,11 +6,12 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "ijpatricio/mingle": "dev-main",
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.9",
+        "laravel/vapor-core": "^2.37",
         "livewire/livewire": "^3.4",
-        "livewire/volt": "dev-patch-1",
-        "ijpatricio/mingle": "dev-main"
+        "livewire/volt": "dev-patch-1"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
