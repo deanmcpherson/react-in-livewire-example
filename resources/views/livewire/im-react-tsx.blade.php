@@ -13,6 +13,7 @@ $makeItGoBoom = fn() => dd('This is dd');
 $doubleIt = function() {
     $this->count *= 2;
 };
+
 ?>
 <script>
 import {useState} from 'react';
@@ -26,7 +27,7 @@ function render(props) {
 
        Hello {props.wire.hello} from react!
             <div>
-                <button className="bg-red-200 m-2 p-2" onClick={() => {
+                <button className="bg-red-400 m-2 p-2" onClick={() => {
                     props.wire.makeItGoBoom();
                 }}>Go boom</button>
             </div>

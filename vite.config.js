@@ -32,14 +32,16 @@ function myPlugin() {
     async transform(src, id) {
 
       if (id.endsWith('.blade.php')) {
-                //extract code between <script> tags
+                //Strip everything inside php tags
+
+
+                src = src.replace(/<\?php([\s\S]*?)\?>/g, '');
                 const scriptRegex = /<script>([\s\S]*?)<\/script>/g;
                 const scriptMatch = scriptRegex.exec(src);
-                const scriptCode = scriptMatch[1];
+                const scriptCode = scriptMatch?.[1] || '';
                 const name =`resources/views/${id.split('/resources/views/').pop()}`;
                 const preparedCode = `
         import mingle from '@mingle/mingleReact';
-        import React from 'react';
         ${scriptCode}
         mingle('${name}${isDevelopment ? '?import' : ''}', render);
         export default function() {
@@ -70,7 +72,7 @@ export default defineConfig({
     plugins: [
         inspect(),
         react({
-            include: ['.js', '.jsx', '.ts', '.tsx', '.tsx.blade.php'],
+            include: ['.js', '.jsx', '.ts', '.tsx', '.blade.php'],
             template: {
                 transformAssetUrls: {
                     base: null,
