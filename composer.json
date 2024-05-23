@@ -7,6 +7,7 @@
     "require": {
         "php": "^8.2",
         "ijpatricio/mingle": "dev-main",
+        "laravel/folio": "^1.1",
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.9",
         "laravel/vapor-core": "^2.37",
