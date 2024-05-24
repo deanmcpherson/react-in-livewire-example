@@ -16,15 +16,16 @@ $addTask = function($taskText) {
 };
 
 $removeTask = function($taskId) {
-   $tasks = array_values(array_filter($this->tasks, function($task) use ($taskId) {
+
+    $tasks = collect($this->tasks)->filter(function($task) use ($taskId) {
         return $task['id'] !== $taskId;
-    }));
+    })->values()->toArray();
+
     $this->tasks = $tasks;
 };
 
 ?>
 <script>
-import Button from '@/Button';
 function render({wire: {tasks, addTask, removeTask}}) {
     return <div className=" border p-4 rounded-lg mt-2">
             <ul>{
@@ -42,7 +43,7 @@ function render({wire: {tasks, addTask, removeTask}}) {
             className="bg-white h-8 text-black rounded border-none w-full"
             placeholder="Add Todo"
             onKeyPress={(e) => {
-                if (e.key === 'Enter') {
+                if (e.key === 'Enter' && e.target.value) {
                     addTask(e.target.value)
                     e.target.value = ''
                 }
